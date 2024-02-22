@@ -15,7 +15,7 @@ page.goto(f"{root_url}/search?query=flutter&tab=position")
 # time.sleep(2)
 
 # page.click("button.Aside_searchButton__Xhqq3")
-# # page.locator("button.Aside_searchButton__Xhqq3").click()
+# # page.locator("button.Aside_searchButton__Xhqq3").click() # 이렇게 할 수도 있음
 # time.sleep(2)
 
 # page.get_by_placeholder("검색어를 입력해 주세요.").fill("flutter")
@@ -31,7 +31,7 @@ for x in range(5):
   page.keyboard.down("End")
   time.sleep(1)
 
-time.sleep(2)
+# time.sleep(1)
 
 content = page.content()
 
