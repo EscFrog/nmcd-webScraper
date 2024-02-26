@@ -4,10 +4,10 @@ from bs4 import BeautifulSoup
 
 root_url = "https://www.wanted.co.kr"
 
-p = sync_playwright().start()
+playwright = sync_playwright().start()
 
 # browser = p.chromium.launch()
-browser = p.chromium.launch(headless=False)
+browser = playwright.chromium.launch(headless=False)
 
 page = browser.new_page()
 
@@ -35,7 +35,7 @@ for x in range(5):
 
 content = page.content()
 
-p.stop()
+playwright.stop()
 
 soup = BeautifulSoup(content, "html.parser")
 
