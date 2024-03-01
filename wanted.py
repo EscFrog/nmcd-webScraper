@@ -1,6 +1,7 @@
 from playwright.sync_api import sync_playwright
 import time
 from bs4 import BeautifulSoup
+import csv
 
 root_url = "https://www.wanted.co.kr"
 
@@ -56,5 +57,14 @@ for job in jobs:
   }
   jobs_db.append(job)
 
-print(jobs_db)
-print(len(jobs_db))
+file = open("jobs.csv", "w")
+writer = csv.writer(file)
+writer.writerow([ # 일단 헤더 행을 만든다.
+  "Title",
+  "Company",
+  "Reward",
+  "Link"
+])
+
+for job in jobs_db:
+  writer.writerow(job.values()) # dictionary.values 메소드는 딕셔너리의 값만 리스트로 만들어 반환한다.
