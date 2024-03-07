@@ -1,14 +1,10 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
+from save_file import save_to_csv
 import time
-import csv
+
 
 root_url="https://www.wanted.co.kr"
-prog_langs = [
-  "flutter",
-  "next.js",
-  "kotlin"
-  ]
 
 class Job:
   def __init__(self, title, company, reward, link):
@@ -34,17 +30,8 @@ def auto_scroll(page):
     last_height = new_height
 
 
-def save_to_csv(prog_lang, Jobs_list): 
-  with open(f"{prog_lang}_jobs.csv", "w", newline='', encoding='utf-8') as file:
-    writer = csv.writer(file)
-    writer.writerow(["Title", "Company", "Reward", "Link"])
-
-    for job in Jobs_list:
-      writer.writerow(job.get_info())
-
-
-def scrape_infinite_scroll_page(prog_lang):
-  url = f"{root_url}/search?query={prog_lang}&tab=position"
+def scrape_page(keyword):
+  url = f"{root_url}/search?query={keyword}&tab=position"
   Jobs_list = []
 
   with sync_playwright() as p:
@@ -68,7 +55,4 @@ def scrape_infinite_scroll_page(prog_lang):
     job_instance = Job(title, company, reward, link)
     Jobs_list.append(job_instance)
   
-  save_to_csv(prog_lang, Jobs_list)
-
-for prog_lang in prog_langs:
-  scrape_infinite_scroll_page(prog_lang)
+  save_to_csv(keyword, Jobs_list)
