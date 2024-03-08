@@ -1,11 +1,20 @@
+from flask import Flask
 from extractors.wanted import scrape_wanted
 from save_to_csv import save_to_csv
 
-keyword = "python"
+app = Flask("JobScrapper")
 
-jobs_list = scrape_wanted(keyword)
+@app.route("/")
+def home():
+  return 'Hello World!'
 
-for job in jobs_list:
-    print(job.get_info())
+app.run("127.0.0.1", debug=True)
 
-save_to_csv(keyword, jobs_list)
+# keyword = "python"
+
+# jobs_list = scrape_wanted(keyword)
+
+# for job in jobs_list:
+#     print(job.get_info())
+
+# save_to_csv(keyword, jobs_list)
