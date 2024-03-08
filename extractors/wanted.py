@@ -1,8 +1,6 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
-from save_file import save_to_csv
 import time
-
 
 root_url="https://www.wanted.co.kr"
 
@@ -30,9 +28,10 @@ def auto_scroll(page):
     last_height = new_height
 
 
-def scrape_page(keyword):
+def scrape_wanted(keyword):
   url = f"{root_url}/search?query={keyword}&tab=position"
-  Jobs_list = []
+
+  jobs_list = []
 
   with sync_playwright() as p:
     browser = p.chromium.launch(headless=False)
@@ -53,6 +52,6 @@ def scrape_page(keyword):
     link = f'{root_url}{job.find("a")["href"]}'
     
     job_instance = Job(title, company, reward, link)
-    Jobs_list.append(job_instance)
+    jobs_list.append(job_instance)
   
-  save_to_csv(keyword, Jobs_list)
+  return jobs_list
