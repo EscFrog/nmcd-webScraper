@@ -1,19 +1,9 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import time
+from classes import Job
 
 root_url="https://www.wanted.co.kr"
-
-class Job:
-  def __init__(self, title, company, reward, link):
-    self.title = title
-    self.company = company
-    self.reward = reward
-    self.link = link
-
-  def get_info(self):
-    return [self.title, self.company, self.reward, self.link]
-
 
 def auto_scroll(page):
   last_height = page.evaluate("document.body.scrollHeight")
