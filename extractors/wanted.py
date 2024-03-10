@@ -28,7 +28,7 @@ def auto_scroll(page):
     last_height = new_height
 
 
-def scrape_wanted(keyword):
+def scrape_wanted_jobs(keyword):
   url = f"{root_url}/search?query={keyword}&tab=position"
 
   jobs_list = []
