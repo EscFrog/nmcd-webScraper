@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from extractors.wanted import scrape_wanted_jobs
 from save_to_csv import save_to_csv
 
@@ -12,6 +12,9 @@ def home():
 @app.route("/search")
 def search():
   req_keyword = request.args.get("keyword")
+
+  if req_keyword == None:
+    return redirect("/")
   
   if req_keyword in db:
     wanted_jobs = db[req_keyword]
