@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from extractors.wanted import scrape_wanted
 from save_to_csv import save_to_csv
 
@@ -10,7 +10,8 @@ def home():
 
 @app.route("/search")
 def search():
-  return render_template("search.html", keyword)
+  req_keyword = request.args.get("keyword")
+  return render_template("search.html", keyword=req_keyword)
 
 app.run("127.0.0.1", debug=True)
 
